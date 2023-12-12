@@ -4,6 +4,7 @@ namespace Label84\AuthLog\Listeners;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 
 class LogAuthAction
@@ -11,7 +12,7 @@ class LogAuthAction
     /** @param mixed $event */
     public function handle($event, array $context = null): void
     {
-        if (config('authlog.enabled') == false) {
+        if (!config('authlog.enabled') && !config('authlog.enable_channel')) {
             return;
         }
 
@@ -19,15 +20,28 @@ class LogAuthAction
             return;
         }
 
-        DB::connection(config('authlog.database_connection'))->table(config('authlog.table_name'))->insert([
-            'event_name' => class_basename($event),
-            'email' => $this->getEmailParameter($event),
-            'user_id' => $this->getUserIdParameter($event),
-            'ip_address' => Request::ip(),
-            'user_agent' => Request::userAgent(),
-            'context' => is_array($context) ? json_encode($context) : null,
-            'created_at' => Carbon::now()->timezone(config('app.timezone', 'UTC')),
-        ]);
+        if (config('authlog.enabled')) {
+            DB::connection(config('authlog.database_connection'))->table(config('authlog.table_name'))->insert([
+                'event_name' => class_basename($event),
+                'email' => $this->getEmailParameter($event),
+                'user_id' => $this->getUserIdParameter($event),
+                'ip_address' => Request::ip(),
+                'user_agent' => Request::userAgent(),
+                'context' => is_array($context) ? json_encode($context) : null,
+                'created_at' => Carbon::now()->timezone(config('app.timezone', 'UTC')),
+            ]);
+        }
+
+        if (config('authlog.enable_channel')) {
+            Log::channel(config('authlog.channel'))->warning(class_basename($event), [
+                'email' => $this->getEmailParameter($event),
+                'user_id' => $this->getUserIdParameter($event),
+                'ip_address' => Request::ip(),
+                'user_agent' => Request::userAgent(),
+                'context' => is_array($context) ? json_encode($context) : null,
+                'created_at' => Carbon::now()->timezone(config('app.timezone', 'UTC'))
+            ]);
+        }
     }
 
     /** @param mixed $event */

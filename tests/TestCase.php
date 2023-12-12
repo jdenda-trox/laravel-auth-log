@@ -2,6 +2,7 @@
 
 namespace Label84\AuthLog\Tests;
 
+use Illuminate\Support\Facades\Log;
 use Label84\AuthLog\AuthLogServiceProvider;
 use Orchestra\Testbench\Factories\UserFactory;
 

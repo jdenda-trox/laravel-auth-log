@@ -18,6 +18,9 @@ return [
      */
     'enabled' => env('AUTH_LOG_ENABLED', true),
 
+    'enable_channel' => env('AUTH_LOG_ENABLE_CHANNEL', true),
+    'channel' => env('AUTH_LOG_CHANNEL', 'default'),
+
     /*
      * All events that the package will log to the database.
      *

@@ -1,11 +1,14 @@
 {
-    "name": "label84/laravel-auth-log",
+    "name": "jdenda/laravel-auth-logger",
     "description": "Log user authentication actions in Laravel.",
     "type": "library",
     "license": "MIT",
     "authors": [{
         "name": "Label84",
         "email": "info@label84.com"
+    },{
+        "name": "Janneck Denda",
+        "email": "janneck.denda@troxgroup.com"
     }],
     "require": {
         "php": "^8.0",
@@ -15,7 +18,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^7.0|^8.0",
-        "nunomaduro/larastan": "^2.0"
+        "nunomaduro/larastan": "^2.0",
+        "timacdonald/log-fake": "^2.1"
     },
     "extra": {
         "laravel": {
