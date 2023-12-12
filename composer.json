@@ -1,6 +1,6 @@
 {
-    "name": "jdenda/laravel-auth-logger",
-    "description": "Log user authentication actions in Laravel.",
+    "name": "jdenda-trox/laravel-auth-logger",
+    "description": "Log user authentication actions in Laravel with added graylog connector.",
     "type": "library",
     "license": "MIT",
     "authors": [{
