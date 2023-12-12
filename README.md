@@ -6,7 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/label84/laravel-auth-log.svg?style=flat-square)](https://packagist.org/packages/label84/laravel-auth-log)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/label84/laravel-auth-log/run-tests.yml?branch=master&style=flat-square)
 
-The ``laravel-auth-log`` package will log all the default Laravel authentication events (Login, Attempting, Lockout, etc.) to your database. In the config file you can select the events that you would like to log. It will save the event name, email, user id, ip address and user agent to the database. No other configurations are required. This package could be useful for tracking unwanted activity in your Laravel application.
+The ``laravel-auth-log`` package will log all the default Laravel authentication events (Login, Attempting, Lockout, etc.) to your database and optionally to graylog instance. In the config file you can select the events that you would like to log. It will save the event name, email, user id, ip address and user agent. No other configurations are required. This package could be useful for tracking unwanted activity in your Laravel application.
 
 - [Laravel Support](#laravel-support)
 - [Installation](#installation)
@@ -26,7 +26,7 @@ The ``laravel-auth-log`` package will log all the default Laravel authentication
 ### 1. Install the package via composer
 
 ```sh
-composer require label84/laravel-auth-log
+composer require jdenda-trox/laravel-auth-log
 ```
 
 ### 2. Publish the config file and migration
@@ -70,7 +70,8 @@ In the same file you can can also change the database connection and table name.
 
 ### Enable/disable logging
 
-You can add the ``AUTH_LOG_ENABLED=`` to your ``.env`` file to enable/disable the logging.
+You can add the ``AUTH_LOG_ENABLED=`` to your ``.env`` file to enable/disable the logging to the database.
+Config for Graylog will follow.
 
 ```php
 // .env
